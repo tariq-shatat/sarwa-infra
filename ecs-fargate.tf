@@ -2,6 +2,9 @@
 # ECS CLUSTER
 # ---------------------------------------------------------------------------------------------------------------------
 
+data "aws_ecs_task_definition" "task-def" {
+  task_definition = aws_ecs_task_definition.task-def.family
+}
 resource "aws_ecs_cluster" "ecs-cluster" {
   name = "${var.stack}-Cluster"
 }
@@ -46,9 +49,10 @@ DEFINITION
 # ---------------------------------------------------------------------------------------------------------------------
 
 resource "aws_ecs_service" "service" {
-  name            = "${var.stack}-Service"
-  cluster         = aws_ecs_cluster.ecs-cluster.id
-  task_definition = aws_ecs_task_definition.task-def.arn
+  name    = "${var.stack}-Service"
+  cluster = aws_ecs_cluster.ecs-cluster.id
+  #task_definition = aws_ecs_task_definition.task-def.arn
+  task_definition = "arn:aws:ecs:${var.aws_region}:${data.aws_caller_identity.current.account_id}:task-definition/${aws_ecs_task_definition.task-def.family}:${max("${aws_ecs_task_definition.task-def.revision}", "${data.aws_ecs_task_definition.task-def.revision}")}"
   desired_count   = var.task_count
   launch_type     = "FARGATE"
 
