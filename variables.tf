@@ -41,7 +41,7 @@ variable "container_port" {
 
 variable "task_count" {
   description = "Number of ECS tasks to run"
-  default     = 1
+  default     = 2
 }
 
 variable "fargate_cpu" {
