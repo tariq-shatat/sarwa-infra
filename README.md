@@ -33,6 +33,7 @@ Once you clone the repo into your local machine, you can start using terraform c
 The current infrastructure is built for the MVP and as we scale the application the following action items might be needed.
 
 - [ ] Setting up a DNS resolution for the ALB host using Route53 and provision SSL certificate to encrypt the traffic.
+- [ ] Setting up CI/CD pipeline for the terraform repository to allow connitnous delivery on configuration changes.
 - [ ] Although the current infrastructure is highly available, we need to configure Autoscaling for No. of ECS tasks based on the traffic and utilization.
 - [ ] Setting up development and staging environments for developers to utilize.
 - [ ] Change the deployment strategy to a blue/green deployment, to allow easy and less disruptive rollback mechanisms.
